@@ -1,0 +1,40 @@
+App\Entity\Location:
+  properties:
+    city:
+      - NotNull:
+          groups: [new, edit]
+    country:
+      - NotNull:
+          groups: [new, edit]
+    latitude:
+      - NotNull:
+          groups: [new, edit ]
+      - Range:
+          min: -90
+          max: 90
+          groups: [new, edit]
+    longitude:
+      - NotNull:
+          groups: [new, edit ]
+      - Range:
+          min: -180
+          max: 180
+          groups: [new, edit ]
+App\Entity\WeatherHistory:
+  properties:
+    temperature:
+      - Type:
+            type: float
+            message: 'The value {{ value }} is not a valid {{ type }}.'
+            groups: [ new, edit ]
+      - NotNull:
+          groups: [ new, edit ]
+    unit:
+      - NotNull:
+          groups: [ new, edit ]
+    created_at:
+      - NotNull:
+          groups: [ new, edit ]
+    location:
+      - NotNull:
+          groups: [ new, edit ]

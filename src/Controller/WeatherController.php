@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class WeatherController extends AbstractController
 {
-    #[Route('/weather/{city}/{country?}', name: 'app_weather', requirements: [
+    #[Route('/weather1/{city}/{country?}', name: 'app_weather', requirements: [
         'city' => '[a-zA-Z\s]+',
         'country' => '[A-Z]{2}',
     ])]
@@ -26,6 +26,7 @@ class WeatherController extends AbstractController
         } else {
             $location = $locationRepository->findOneBy(['city' => $city]);
         }
+
         $weatherHistory = $weatherRepository->findByLocation($location);
 
         return $this->render('weather/index.html.twig', [
