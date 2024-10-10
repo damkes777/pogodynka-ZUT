@@ -3,31 +3,25 @@
 namespace App\Controller;
 
 use App\Entity\Location;
-use App\Repository\LocationRepository;
-use App\Repository\WeatherHistoryRepository;
+use App\Service\WeatherUtil;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class WeatherController extends AbstractController
 {
-    #[Route('/weather1/{city}/{country?}', name: 'app_weather', requirements: [
+    #[Route('/getWeather/{country}/{city}', name: 'app_weather', requirements: [
         'city' => '[a-zA-Z\s]+',
         'country' => '[A-Z]{2}',
     ])]
     public function index(
-        string $city,
-        ?string $country,
-        WeatherHistoryRepository $weatherRepository,
-        LocationRepository $locationRepository
+        #[MapEntity(mapping: ['country' => 'country', 'city' => 'city'])]
+        Location $location,
+        WeatherUtil $weatherUtil,
     ): Response {
-        if ($country) {
-            $location = $locationRepository->findOneBy(['country' => $country, 'city' => $city]);
-        } else {
-            $location = $locationRepository->findOneBy(['city' => $city]);
-        }
 
-        $weatherHistory = $weatherRepository->findByLocation($location);
+        $weatherHistory = $weatherUtil->getWeatherForLocation($location);
 
         return $this->render('weather/index.html.twig', [
             'location' => $location,
