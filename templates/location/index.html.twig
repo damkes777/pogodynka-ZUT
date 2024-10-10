@@ -36,6 +36,7 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_location_new') }}">Create new</a>
+    {% if is_granted('ROLE_LOCATION_NEW') %}
+        <a href="{{ path('app_location_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}
