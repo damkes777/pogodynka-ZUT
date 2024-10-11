@@ -79,4 +79,9 @@ class WeatherHistory
 
         return $this;
     }
+
+    public function getFahrenheit(): ?float
+    {
+        return ($this->temperature * 9/5) + 32;
+    }
 }

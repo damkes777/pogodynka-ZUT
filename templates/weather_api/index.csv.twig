@@ -1,0 +1,7 @@
+City,Country,Date,Temperature,Fahrenheit
+{% for entry in weather -%}
+    {%- if loop.first == false -%}
+        {{ "\n" }}
+    {%- endif -%}
+    {{ city }},{{ country }},{{ entry.getCreatedAt().format('Y-m-d') }},{{ entry.getTemperature() }},{{ entry.getFahrenheit() }}
+{%- endfor %}

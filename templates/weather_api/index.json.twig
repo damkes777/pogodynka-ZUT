@@ -1,0 +1,15 @@
+{
+    "city": "{{ city }}",
+    "country": "{{ country }}",
+    "weather": [
+        {% for data in weather %}
+        {
+            "date": "{{ data.getCreatedAt().format('Y-m-d') }}",
+            "temperature": "{{ data.getTemperature() }}",
+            "fahrenheit": "{{ data.getFahrenheit }}"
+            {% if not loop.last %},
+            {% endif %}
+        }
+        {% endfor %}
+    ]
+}
